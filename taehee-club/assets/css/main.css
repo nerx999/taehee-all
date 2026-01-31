@@ -1,0 +1,161 @@
+:root{
+  --gold:#d4af37;
+  --gold-soft:#bfa14a;
+  --black:#05070d;
+  --dark:#0b0f1a;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Inter","Segoe UI",sans-serif;
+}
+
+body.landing{
+  min-height:100vh;
+  background:
+    linear-gradient(rgba(5,7,13,.65), rgba(5,7,13,.85)),
+    url("assets/bg.jpg") center / cover no-repeat;
+  color:#fff;
+  overflow:hidden;
+}
+
+
+/* ===== PARTICLES LAYER ===== */
+#particles{
+  position:fixed;
+  inset:0;
+  z-index:1;
+}
+
+/* ===== HERO ===== */
+.hero{
+  position:relative;
+  z-index:2;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+/* LOGO */
+.logo{
+  width:90px;
+  margin-bottom:26px;
+  filter:drop-shadow(0 0 25px rgba(212,175,55,.35));
+}
+
+/* TITLE */
+.hero h1{
+  font-size:72px;
+  letter-spacing:3px;
+  margin-bottom:14px;
+}
+
+/* SUBTITLE */
+.hero p{
+  font-size:18px;
+  letter-spacing:1.2px;
+  color:#cfcfcf;
+  margin-bottom:48px;
+}
+
+/* BUTTON */
+.btn-gold{
+  padding:15px 48px;
+  border-radius:40px;
+  border:1px solid rgba(212,175,55,.6);
+  color:var(--gold);
+  text-decoration:none;
+  font-size:15px;
+  letter-spacing:.8px;
+  backdrop-filter:blur(10px);
+  background:linear-gradient(
+    135deg,
+    rgba(212,175,55,.08),
+    rgba(212,175,55,.02)
+  );
+  box-shadow:
+    0 0 0 rgba(212,175,55,0),
+    inset 0 0 0 rgba(212,175,55,0);
+  transition:.4s ease;
+}
+
+.btn-gold:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    0 0 35px rgba(212,175,55,.45),
+    inset 0 0 20px rgba(212,175,55,.25);
+  background:rgba(212,175,55,.15);
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .hero h1{
+    font-size:48px;
+  }
+  .hero p{
+    font-size:15px;
+  }
+  .logo{
+    width:72px;
+  }
+}
+
+body.landing::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(212,175,55,.12), transparent 55%),
+    radial-gradient(circle at bottom, rgba(0,0,0,.75), transparent 60%);
+  z-index:0;
+}
+
+body.landing{
+  position:relative;
+}
+
+#particles{ z-index:1; }
+.hero{ z-index:2; }
+
+.member-card{
+  cursor: pointer;
+}
+
+.fb-btn{
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.hero-title{
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  letter-spacing: 4px;
+  color: #fff;
+  text-shadow:
+    0 0 10px rgba(212,175,55,.4),
+    0 0 30px rgba(212,175,55,.2);
+
+  animation: heroReveal 1.6s ease-out;
+}
+
+@keyframes heroReveal{
+  0%{
+    opacity: 0;
+    transform: scale(0.9) translateY(30px);
+    filter: blur(6px);
+  }
+  60%{
+    opacity: 1;
+    transform: scale(1.05) translateY(0);
+    filter: blur(0);
+  }
+  100%{
+    transform: scale(1);
+  }
+}

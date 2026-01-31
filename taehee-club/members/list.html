@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>TAEHEE | LIST</title>
+<link rel="icon" type="image/x-icon" href="favlogo.ico">
+<link rel="stylesheet" href="../assets/css/style.css">
+<style>
+/* ===== SEARCH BAR ===== */
+.search-container{
+  max-width:600px;
+  margin:20px auto 30px;
+  position:relative;
+}
+
+.search-input{
+  width:100%;
+  padding:14px 20px 14px 45px;
+  border:2px solid var(--gold);
+  background:rgba(255,255,255,.05);
+  border-radius:50px;
+  color:#fff;
+  font-size:16px;
+  letter-spacing:1px;
+  outline:none;
+  transition:.3s ease;
+}
+
+.search-input::placeholder{
+  color:#aaa;
+}
+
+.search-input:focus{
+  background:rgba(255,255,255,.1);
+  box-shadow:0 0 20px rgba(212,175,55,.3);
+}
+
+.search-icon{
+  position:absolute;
+  left:20px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--gold);
+  font-size:18px;
+}
+
+/* ===== FILTER BAR ===== */
+.filter-bar{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin:20px auto 40px;
+  flex-wrap:wrap;
+}
+
+.filter-btn{
+  padding:10px 24px;
+  border:2px solid var(--gold);
+  background:transparent;
+  color:var(--gold);
+  border-radius:30px;
+  cursor:pointer;
+  transition:.3s ease;
+  font-size:14px;
+  letter-spacing:1px;
+  white-space:nowrap;
+}
+
+.filter-btn:hover{
+  background:rgba(212,175,55,.1);
+}
+
+.filter-btn.active{
+  background:var(--gold);
+  color:var(--black);
+}
+
+/* ===== MEMBER GRID ===== */
+.member-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:30px;
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 20px;
+}
+
+.member-card{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:15px;
+  padding:25px;
+  text-align:center;
+  transition:.3s ease;
+  overflow:hidden;
+  cursor:pointer;
+}
+
+.member-card:hover{
+  transform:translateY(-5px);
+  background:rgba(255,255,255,.08);
+  box-shadow:0 10px 30px rgba(0,0,0,.3);
+  border-color:rgba(212,175,55,.3);
+}
+
+/* ===== AVATAR ===== */
+.avatar{
+  width:100px;
+  height:100px;
+  margin:0 auto 15px;
+  border-radius:50%;
+  background:#222;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  border:3px solid var(--gold);
+  position:relative;
+  transition:.3s ease;
+}
+
+.member-card:hover .avatar{
+  transform:scale(1.05);
+  border-color:var(--gold-soft);
+}
+
+.avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* ===== MEMBER INFO ===== */
+.member-card h3{
+  font-size:18px;
+  margin-bottom:8px;
+  color:#fff;
+  transition:.2s ease;
+}
+
+.member-card:hover h3{
+  color:var(--gold);
+}
+
+.member-card span{
+  font-size:14px;
+  color:var(--gold);
+  letter-spacing:1px;
+  display:block;
+}
+
+/* ===== FACEBOOK BUTTON ===== */
+.fb-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  padding:8px 16px;
+  background:#1877f2;
+  color:#fff;
+  border-radius:25px;
+  text-decoration:none;
+  font-size:13px;
+  margin-top:12px;
+  transition:.3s ease;
+  border:2px solid #1877f2;
+}
+
+.fb-btn:hover{
+  background:#166fe5;
+  transform:scale(1.05);
+  box-shadow:0 5px 15px rgba(24,119,242,.4);
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .search-input{
+    padding:12px 18px 12px 40px;
+    font-size:14px;
+  }
+  
+  .filter-bar{
+    gap:8px;
+    margin-bottom:30px;
+  }
+  
+  .filter-btn{
+    padding:8px 16px;
+    font-size:12px;
+  }
+  
+  .member-grid{
+    grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+    gap:20px;
+  }
+  
+  .avatar{
+    width:80px;
+    height:80px;
+  }
+  
+  .member-card{
+    padding:20px 15px;
+  }
+  
+  .fb-btn{
+    padding:6px 12px;
+    font-size:12px;
+  }
+}
+
+/* ===== CREDITS ===== */
+.credits{
+  background:rgba(5,7,13,.9);
+  border-top:1px solid rgba(212,175,55,.3);
+  padding:40px 0;
+  margin-top:60px;
+  text-align:center;
+}
+
+.credits-content{
+  max-width:800px;
+  margin:0 auto;
+  padding:0 20px;
+}
+
+.credits h4{
+  font-size:24px;
+  margin-bottom:20px;
+  color:var(--gold);
+  letter-spacing:2px;
+}
+
+.credits p{
+  font-size:14px;
+  color:#aaa;
+  margin:8px 0;
+  line-height:1.6;
+}
+
+.credits strong{
+  color:#fff;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .credits{
+    padding:30px 0;
+    margin-top:40px;
+  }
+  
+  .credits h4{
+    font-size:20px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-wrapper"></div>
+<div class="bg-noise"></div>
+
+<header class="topbar">
+  <h2>MEMBERS ALL</h2>
+  <a href="../index.html" class="btn-outline">Home</a>
+</header>
+
+<!-- SEARCH BAR -->
+<div class="search-container">
+  <span class="search-icon">|</span>
+  <input type="text" class="search-input" id="searchInput" placeholder="ค้นหาชื่อสมาชิก...">
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">ALL</button>
+  <button class="filter-btn" data-filter="TAEHEE">TAEHEE</button>
+  <button class="filter-btn" data-filter="KONMANBUAE">KONMANBUAE</button>
+  <button class="filter-btn" data-filter="MORANA">MORANA</button>
+</div>
+
+<!-- MEMBER GRID -->
+<section class="member-grid" id="memberGrid">
+  
+  <!-- TAEHEE -->
+  <div class="member-card" data-crew="TAEHEE" data-name="latae taehee">
+    <div class="avatar">
+      <img src="../assets/images/teahee.jpg" alt="Latae Taehee">
+    </div>
+    <h3>Latae Taehee</h3>
+    <span>TAEHEE</span>
+    <a href="https://www.facebook.com/latae.taehee" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="TAEHEE" data-name="chayen taehee">
+    <div class="avatar">
+      <img src="../assets/images/teahee.jpg" alt="Chayen Taehee">
+    </div>
+    <h3>Chayen Taehee</h3>
+    <span>TAEHEE</span>
+    <a href="https://www.facebook.com/latae.taehee" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="TAEHEE" data-name="rerq jubjub">
+    <div class="avatar">
+      <img src="../assets/images/teahee.jpg" alt="Rerq Jubjub">
+    </div>
+    <h3>Rerq Jubjub</h3>
+    <span>TAEHEE</span>
+    <a href="https://www.facebook.com/latae.taehee" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="TAEHEE" data-name="billy youngthug">
+    <div class="avatar">
+      <img src="../assets/images/teahee.jpg" alt="Billy Youngthug">
+    </div>
+    <h3>Billy Youngthug</h3>
+    <span>TAEHEE</span>
+    <a href="https://www.facebook.com/latae.taehee" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="TAEHEE" data-name="blumarine bxii">
+    <div class="avatar">
+      <img src="../assets/images/teahee.jpg" alt="Blumarine Bxii">
+    </div>
+    <h3>Blumarine Bxii</h3>
+    <span>TAEHEE</span>
+    <a href="https://www.facebook.com/latae.taehee" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="TAEHEE" data-name="kruz diff">
+    <div class="avatar">
+      <img src="../assets/images/teahee.jpg" alt="Kruz Diff">
+    </div>
+    <h3>Kruz Diff</h3>
+    <span>TAEHEE</span>
+    <a href="https://www.facebook.com/latae.taehee" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="TAEHEE" data-name="yu ji">
+    <div class="avatar">
+      <img src="../assets/images/teahee.jpg" alt="YU JI">
+    </div>
+    <h3>YU JI</h3>
+    <span>TAEHEE</span>
+    <a href="https://www.facebook.com/do.he.336" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <!-- KONMANBUAE -->
+  <div class="member-card" data-crew="KONMANBUAE" data-name="latae taehee">
+    <div class="avatar">
+      <img src="../assets/images/konmanbuea.jpg" alt="Latae Taehee">
+    </div>
+    <h3>Latae Taehee</h3>
+    <span>KONMANBUAE</span>
+    <a href="https://facebook.com/kai.konmanbuae" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="KONMANBUAE" data-name="chayen taehee">
+    <div class="avatar">
+      <img src="../assets/images/konmanbuea.jpg" alt="Chayen Taehee">
+    </div>
+    <h3>Chayen Taehee</h3>
+    <span>KONMANBUAE</span>
+    <a href="https://facebook.com/tao.konmanbuae" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="KONMANBUAE" data-name="aijao kiounits">
+    <div class="avatar">
+      <img src="../assets/images/konmanbuea.jpg" alt="Aijao Kiounits">
+    </div>
+    <h3>Aijao Kiounits</h3>
+    <span>KONMANBUAE</span>
+    <a href="https://facebook.com/ying.konmanbuae" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="KONMANBUAE" data-name="taroz twothousandfive">
+    <div class="avatar">
+      <img src="../assets/images/konmanbuea.jpg" alt="TaroZ Twothousandfive">
+    </div>
+    <h3>TaroZ Twothousandfive</h3>
+    <span>KONMANBUAE</span>
+    <a href="https://facebook.com/ying.konmanbuae" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="KONMANBUAE" data-name="leen outsides">
+    <div class="avatar">
+      <img src="../assets/images/konmanbuea.jpg" alt="Leen Outsides">
+    </div>
+    <h3>Leen Outsides</h3>
+    <span>KONMANBUAE</span>
+    <a href="https://facebook.com/ying.konmanbuae" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="KONMANBUAE" data-name="vali twothousandfive">
+    <div class="avatar">
+      <img src="../assets/images/konmanbuea.jpg" alt="Vali Twothousandfive">
+    </div>
+    <h3>Vali Twothousandfive</h3>
+    <span>KONMANBUAE</span>
+    <a href="https://facebook.com/ying.konmanbuae" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="KONMANBUAE" data-name="chel abess">
+    <div class="avatar">
+      <img src="../assets/images/konmanbuea.jpg" alt="Chel Abess">
+    </div>
+    <h3>Chel Abess</h3>
+    <span>KONMANBUAE</span>
+    <a href="https://facebook.com/ying.konmanbuae" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="KONMANBUAE" data-name="ao time">
+    <div class="avatar">
+      <img src="../assets/images/konmanbuea.jpg" alt="Ao Time">
+    </div>
+    <h3>Ao Time</h3>
+    <span>KONMANBUAE</span>
+    <a href="https://facebook.com/ying.konmanbuae" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="KONMANBUAE" data-name="vxlentrae levup">
+    <div class="avatar">
+      <img src="../assets/images/konmanbuea.jpg" alt="Vxlentrae Levup">
+    </div>
+    <h3>Vxlentrae Levup</h3>
+    <span>KONMANBUAE</span>
+    <a href="https://facebook.com/ying.konmanbuae" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <!-- MORANA -->
+  <div class="member-card" data-crew="MORANA" data-name="snow johnine">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="Snow Johnine">
+    </div>
+    <h3>Snow Johnine</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/luna.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="got zila">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="Got zila">
+    </div>
+    <h3>Got zila</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/rina.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="melody wellesley">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="Melody Wellesley">
+    </div>
+    <h3>Melody Wellesley</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/sara.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="sim tayang">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="Sim Tayang">
+    </div>
+    <h3>Sim Tayang</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/luna.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="makoto eiei">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="Makoto eiei">
+    </div>
+    <h3>Makoto eiei</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/luna.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="phayu alvarez">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="Phayu Alvarez">
+    </div>
+    <h3>Phayu Alvarez</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/luna.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="mail wizkyn">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="Mail wizkyn">
+    </div>
+    <h3>Mail wizkyn</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/luna.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="mark jockey">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="Mark Jockey">
+    </div>
+    <h3>Mark Jockey</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/luna.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="ballsir oliver">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="Ballsir Oliver">
+    </div>
+    <h3>Ballsir Oliver</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/luna.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="jeff usa">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="Jeff USA">
+    </div>
+    <h3>Jeff USA</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/luna.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="kevin dangduad">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="kevin Dangduad">
+    </div>
+    <h3>kevin Dangduad</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/luna.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="mono photogram">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="Mono Photogram">
+    </div>
+    <h3>Mono Photogram</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/luna.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="poppy soundpad">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="Poppy Soundpad">
+    </div>
+    <h3>Poppy Soundpad</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/luna.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="milady mild">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="Milady Mild">
+    </div>
+    <h3>Milady Mild</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/luna.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="sam atlast">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="Sam Atlast">
+    </div>
+    <h3>Sam Atlast</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/luna.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="malin morgran">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="Malin Morgran">
+    </div>
+    <h3>Malin Morgran</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/luna.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="mekha zeuzanteir">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="Mekha Zeuzanteir">
+    </div>
+    <h3>Mekha Zeuzanteir</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/luna.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="snowman macalos">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="SNOWMAN MACALOS">
+    </div>
+    <h3>SNOWMAN MACALOS</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/luna.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="sky blue">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="Sky Blue">
+    </div>
+    <h3>Sky Blue</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/luna.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="sky tamutami">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="Sky Tamutami">
+    </div>
+    <h3>Sky Tamutami</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/luna.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="mira maideepor">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="mira Maideepor">
+    </div>
+    <h3>mira Maideepor</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/luna.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="chaokuai myt">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="Chaokuai Myt">
+    </div>
+    <h3>Chaokuai Myt</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/luna.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="dom yourman">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="Dom Yourman">
+    </div>
+    <h3>Dom Yourman</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/luna.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="chalawan sp">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="Chalawan SP">
+    </div>
+    <h3>Chalawan SP</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/luna.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+  <div class="member-card" data-crew="MORANA" data-name="aiaddin athas">
+    <div class="avatar">
+      <img src="../assets/images/morana.jpg" alt="Aiaddin Athas">
+    </div>
+    <h3>Aiaddin Athas</h3>
+    <span>MORANA</span>
+    <a href="https://facebook.com/luna.morana" target="_blank" class="fb-btn">
+      <span>Facebook</span>
+    </a>
+  </div>
+  
+</section>
+
+<script>
+const filterBtns = document.querySelectorAll('.filter-btn');
+const memberCards = document.querySelectorAll('.member-card');
+const searchInput = document.getElementById('searchInput');
+
+// Filter by category
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilter();
+  });
+});
+
+// Search functionality
+searchInput.addEventListener('input', applyFilter);
+
+function applyFilter(){
+  const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+  const searchTerm = searchInput.value.toLowerCase().trim();
+  
+  memberCards.forEach(card => {
+    const crew = card.getAttribute('data-crew');
+    const name = card.getAttribute('data-name');
+    
+    const matchesFilter = (activeFilter === 'all' || crew === activeFilter);
+    const matchesSearch = searchTerm === '' || name.includes(searchTerm);
+    
+    if(matchesFilter && matchesSearch){
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+</script>
+<!-- เพิ่มก่อน </body> -->
+<footer class="credits">
+  <div class="credits-content">
+    <p>Website by: <strong>TAEHEE</strong></p>
+    <p>Design by: <strong>Rerq Jubjub</strong></p>
+    <p>© 2026 All Rights Reserved</p>
+  </div>
+</footer>
+</body>
+</html>
