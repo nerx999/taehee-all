@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
+  <script>
+    // ถ้า URL ไม่มี .html ท้าย ให้เพิ่ม .html แล้วรีไดเรกท์
+    if (!/\.html$/.test(window.location.pathname)) {
+      const newPath = window.location.pathname + '.html' + window.location.search;
+      window.location.href = newPath;
+    }
+  </script>
+</head>
+<body>
+  <p>Redirecting to the correct page...</p>
+</body>
+</html>
