@@ -1,0 +1,4 @@
+RewriteEngine On
+# ซ่อน .html จากลิงก์
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^/]+)/$ $1.html [L]
